@@ -1,0 +1,38 @@
+{
+  "started_at": "2026-07-05T23:06:43.129213+00:00",
+  "completed_at": "2026-07-05T23:06:58.038830+00:00",
+  "stages": [
+    {
+      "stage": "ingest_raw_data",
+      "status": "success",
+      "duration_seconds": 0.01,
+      "detail": {
+        "rows_ingested": 51
+      }
+    },
+    {
+      "stage": "standardize_countries",
+      "status": "failed",
+      "duration_seconds": 0.09,
+      "detail": "No module named 'etl'"
+    },
+    {
+      "stage": "validate_and_quality_check",
+      "status": "success",
+      "duration_seconds": 0.02,
+      "detail": {
+        "schema_passed": true,
+        "quality_passed": true
+      }
+    },
+    {
+      "stage": "build_rag_index",
+      "status": "success",
+      "duration_seconds": 14.79,
+      "detail": {
+        "records_indexed": 51
+      }
+    }
+  ],
+  "overall_status": "partial_failure"
+}
