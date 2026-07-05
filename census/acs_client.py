@@ -92,16 +92,32 @@ def get_county_level_data(state: str, year: int = 2022, variables: list = None) 
     raw = _fetch(url, params)
     return _rows_to_dataframe(raw, variables)
 
-
 def get_zip_level_data(state: str, year: int = 2022, variables: list = None) -> pd.DataFrame:
     """
-    Pull demographic/income data for all ZCTAs (ZIP Code Tabulation Areas)
-    within a given state.
+    Pull demographic/income data for ZCTAs (ZIP Code Tabulation Areas) within
+    a given state.
+
+    Note: the Census API does NOT support &in=state:XX for ZCTA geography
+    (ZCTAs can straddle state lines, so they aren't scoped under states in
+    the API's geographic hierarchy - a state-scoped ZCTA query returns a 400
+    error). This pulls ZCTA data nationally, then filters to the target
+    state using known ZIP code prefix ranges.
     """
+    from fips_lookup import get_zip_prefixes_for_state
+
     variables = variables or list(DEFAULT_VARIABLES.keys())
-    state_fips = get_state_fips(state)
-    url, params = _build_request(
-        year, variables, for_geo="zip code tabulation area:*", in_geo=f"state:{state_fips}"
-    )
+    url, params = _build_request(year, variables, for_geo="zip code tabulation area:*")
     raw = _fetch(url, params)
-    return _rows_to_dataframe(raw, variables)
+    df = _rows_to_dataframe(raw, variables)
+
+    zcta_col = "zip code tabulation area"
+    prefix_ranges = get_zip_prefixes_for_state(state)
+
+    def _in_state(zcta: str) -> bool:
+        try:
+            prefix = int(str(zcta)[:3])
+        except (ValueError, TypeError):
+            return False
+        return any(low <= prefix <= high for low, high in prefix_ranges)
+
+    return df[df[zcta_col].apply(_in_state)].reset_index(drop=True)

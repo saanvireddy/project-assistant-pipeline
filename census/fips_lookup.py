@@ -52,3 +52,33 @@ def get_state_fips(state_identifier: str) -> str:
             return fips
 
     raise ValueError(f"Unknown state identifier: {state_identifier}")
+
+# ZIP code prefix (first 3 digits) ranges per state. Used because the Census
+# API's ZCTA (ZIP Code Tabulation Area) geography does NOT support &in=state:XX
+# filtering - ZCTAs don't nest cleanly within states (some straddle state
+# lines), so &for=zip code tabulation area:*&in=state:XX returns a 400 error.
+# This is a documented API limitation (see census.gov ZCTA geography notes and
+# the censusapi R package issue tracker). The standard workaround is to pull
+# ZCTA data nationally and filter by known ZIP prefix ranges per state.
+STATE_ZIP_PREFIX_RANGES = {
+    "Florida": [(320, 349)],
+    "California": [(900, 961)],
+    "New York": [(100, 149)],
+    "Texas": [(750, 799), (885, 885)],
+    "Georgia": [(300, 319), (398, 399)],
+    "Alabama": [(350, 369)],
+    # Add more states as needed - this is intentionally not exhaustive;
+    # extend the table for whichever states the pipeline actually targets.
+}
+
+
+def get_zip_prefixes_for_state(state: str) -> list:
+    """Return the list of (start, end) 3-digit ZIP prefix ranges for a state."""
+    resolved_name = STATE_ABBREV_TO_NAME.get(state, state)
+    for name, ranges in STATE_ZIP_PREFIX_RANGES.items():
+        if name.lower() == resolved_name.lower():
+            return ranges
+    raise ValueError(
+        f"No ZIP prefix range defined for '{state}'. "
+        f"Add it to STATE_ZIP_PREFIX_RANGES in fips_lookup.py."
+    )
