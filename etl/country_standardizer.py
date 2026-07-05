@@ -16,7 +16,7 @@ import pandas as pd
 from rapidfuzz import process, fuzz
 
 from iso_reference import ISO_COUNTRIES
-from overrides import ALIAS_OVERRIDES, HISTORICAL_SUCCESSOR_OVERRIDES, NON_STANDARDIZABLE
+from etl.country_overrides import ALIAS_OVERRIDES, HISTORICAL_SUCCESSOR_OVERRIDES, NON_STANDARDIZABLE
 
 FUZZY_MATCH_THRESHOLD = 60  # below this, flag for manual review instead of guessing
 # token_sort_ratio chosen over WRatio: WRatio's length-weighting caused mismatches
