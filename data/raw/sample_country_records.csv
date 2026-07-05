@@ -1,0 +1,52 @@
+country_name,record_id,value
+United States,1001,4500
+USA,1002,3200
+U.S.A.,1003,1800
+United States of America,1004,2900
+US,1005,1200
+United Kingdom,1006,3100
+UK,1007,2200
+U.K.,1008,900
+Great Britain,1009,1500
+England,1010,700
+South Korea,1011,2800
+"Korea, Republic of",1012,1900
+Republic of Korea,1013,800
+North Korea,1014,300
+"Korea, Dem. People's Rep.",1015,150
+Russia,1016,3300
+Russian Federation,1017,1400
+USSR,1018,200
+Soviet Union,1019,100
+UAE,1020,1600
+United Arab Emirates,1021,2100
+U.A.E.,1022,700
+Germany,1023,2900
+Deutschland,1024,600
+West Germany,1025,150
+East Germany,1026,120
+EU,1027,50
+European Union,1028,80
+Ivory Coast,1029,900
+Cote d'Ivoire,1030,700
+Czech Republic,1031,1100
+Czechia,1032,600
+Burma,1033,400
+Myanmar,1034,900
+Swaziland,1035,300
+Eswatini,1036,200
+Macedonia,1037,350
+North Macedonia,1038,500
+Vatican,1039,50
+Holy See,1040,30
+China,1041,4100
+"Peoples Republic of China",1042,900
+Mainland China,1043,300
+Congo,1044,600
+Democratic Republic of the Congo,1045,800
+DR Congo,1046,400
+DRC,1047,250
+Vietnam,1048,1500
+Viet Nam,1049,600
+Laos,1050,700
+Lao PDR,1051,300

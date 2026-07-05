@@ -4,7 +4,8 @@ __pycache__/
 .venv/
 venv/
 data/processed/*.csv
-data/raw/*.csv
+!data/raw/sample_country_records.csv
+!data/raw/iso_3166_full_reference.csv
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 chroma_db/
