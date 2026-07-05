@@ -17,9 +17,9 @@ AI-ready data engineering pipeline built as a USF Project Assistant, covering:
 - `tests/` — unit tests
 
 ## Setup
-```bash
+\```bash
 pip install -r requirements.txt
-```
+\```
 
 ## Status
 🚧 In progress — built incrementally, one module at a time.
