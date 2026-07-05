@@ -102,6 +102,16 @@ def stage_standardize_countries() -> dict:
         "match_rate_pct": round(matched / len(result_df) * 100, 1),
     }
 
+def stage_engineer_features() -> dict:
+    """Apply feature engineering to the standardized country dataset."""
+    from feature_engineering import engineer_country_features
+
+    path = os.path.join(DATA_PROCESSED, "standardized_countries.csv")
+    df = pd.read_csv(path)
+    result_df = engineer_country_features(df)
+    result_df.to_csv(path, index=False)
+
+    return {"features_added": ["match_confidence_tier"], "rows": len(result_df)}
 
 def stage_validate_and_quality_check() -> dict:
     """Schema validation + quality checks on the standardized output."""
@@ -147,6 +157,7 @@ def run_full_pipeline(include_rag: bool = True) -> dict:
 
     run.run_stage("ingest_raw_data", stage_ingest_raw_data)
     run.run_stage("standardize_countries", stage_standardize_countries)
+    run.run_stage("engineer_features", stage_engineer_features)
     run.run_stage("validate_and_quality_check", stage_validate_and_quality_check)
 
     if include_rag:

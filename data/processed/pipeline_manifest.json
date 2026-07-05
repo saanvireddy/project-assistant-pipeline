@@ -1,11 +1,11 @@
 {
-  "started_at": "2026-07-05T23:13:34.036350+00:00",
-  "completed_at": "2026-07-05T23:13:47.325244+00:00",
+  "started_at": "2026-07-05T23:27:46.936222+00:00",
+  "completed_at": "2026-07-05T23:27:59.218287+00:00",
   "stages": [
     {
       "stage": "ingest_raw_data",
       "status": "success",
-      "duration_seconds": 0.0,
+      "duration_seconds": 0.01,
       "detail": {
         "rows_ingested": 51
       }
@@ -20,9 +20,20 @@
       }
     },
     {
+      "stage": "engineer_features",
+      "status": "success",
+      "duration_seconds": 0.01,
+      "detail": {
+        "features_added": [
+          "match_confidence_tier"
+        ],
+        "rows": 51
+      }
+    },
+    {
       "stage": "validate_and_quality_check",
       "status": "success",
-      "duration_seconds": 0.02,
+      "duration_seconds": 0.04,
       "detail": {
         "schema_passed": true,
         "quality_passed": true
@@ -31,7 +42,7 @@
     {
       "stage": "build_rag_index",
       "status": "success",
-      "duration_seconds": 13.15,
+      "duration_seconds": 12.11,
       "detail": {
         "records_indexed": 51
       }
